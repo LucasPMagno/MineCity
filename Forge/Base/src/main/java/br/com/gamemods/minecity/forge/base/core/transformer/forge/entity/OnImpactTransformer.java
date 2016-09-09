@@ -43,15 +43,20 @@ public class OnImpactTransformer implements IClassTransformer
                         patched.set(new MethodInsnNode(ins.getOpcode(), ins.owner, ins.name, ins.desc, ins.itf));
 
                     ins.setOpcode(INVOKESTATIC);
-                    if(ins.owner.equals("net/minecraft/entity/projectile/EntityThrowable"))
+                    switch(ins.owner)
                     {
-                        ins.name = "onThrowableImpact";
-                        ins.desc = "(Lnet/minecraft/entity/projectile/EntityThrowable;"+ins.desc.substring(1);
-                    }
-                    else
-                    {
-                        ins.name = "onFireBallImpact";
-                        ins.desc = "(Lnet/minecraft/entity/projectile/EntityFireball;"+ins.desc.substring(1);
+                        case "net/minecraft/entity/projectile/EntityThrowable":
+                            ins.name = "onThrowableImpact";
+                            ins.desc = "(Lnet/minecraft/entity/projectile/EntityThrowable;" + ins.desc.substring(1);
+                            break;
+                        case "net/minecraft/entity/projectile/EntityFireball":
+                            ins.name = "onFireBallImpact";
+                            ins.desc = "(Lnet/minecraft/entity/projectile/EntityFireball;" + ins.desc.substring(1);
+                            break;
+                        default:
+                            ins.name = "onImpact";
+                            ins.desc = "(Lnet/minecraft/entity/Entity;" + ins.desc.substring(1);
+                            break;
                     }
                     ins.owner = hookClass;
                 });
@@ -76,6 +81,8 @@ public class OnImpactTransformer implements IClassTransformer
 
         ClassWriter writer = new ClassWriter(ClassWriter.COMPUTE_MAXS);
         node.accept(writer);
-        return writer.toByteArray();
+        bytes = writer.toByteArray();
+        ModEnv.saveClass(srg, bytes);
+        return bytes;
     }
 }

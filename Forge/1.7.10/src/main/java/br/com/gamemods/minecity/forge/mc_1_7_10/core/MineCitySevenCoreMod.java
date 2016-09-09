@@ -45,8 +45,15 @@ public class MineCitySevenCoreMod implements IFMLLoadingPlugin, IFMLCallHook
     {
         ModEnv.hookClass = "br.com.gamemods.minecity.forge.mc_1_7_10.protection.MineCitySevenHooks";
         ModEnv.rayTraceResultClass = "net.minecraft.util.MovingObjectPosition";
+        ModEnv.seven = true;
 
         return new String[]{
+                "br.com.gamemods.minecity.forge.base.core.transformer.mod.immersiveengineering.ChemthrowerEffectTeleportTransformer",
+                "br.com.gamemods.minecity.forge.base.core.transformer.mod.immersiveengineering.ChemthrowerHandlerTransformer",
+                "br.com.gamemods.minecity.forge.base.core.transformer.mod.immersiveengineering.EntityChemthrowerShotTransformer",
+                "br.com.gamemods.minecity.forge.base.core.transformer.mod.forgemultipart.ButtonPartTransformer",
+                "br.com.gamemods.minecity.forge.base.core.transformer.mod.forgemultipart.BlockMultiPartTransformer",
+                "br.com.gamemods.minecity.forge.base.core.transformer.mod.forgemultipart.EventHandlerTransformer",
                 "br.com.gamemods.minecity.forge.base.core.transformer.mod.ModInterfacesTransformer",
                 "br.com.gamemods.minecity.forge.base.core.transformer.forge.entity.PathFinderTransformer",
                 "br.com.gamemods.minecity.forge.base.core.transformer.forge.world.ChunkCacheTransformer",
